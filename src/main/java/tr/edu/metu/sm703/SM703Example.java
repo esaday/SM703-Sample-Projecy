@@ -17,6 +17,6 @@ public class SM703Example implements RequestHandler<Map<String, Integer>, String
 
     @Override
     public String handleRequest(Map<String,Integer> input, Context context) {
-        return "Response is:" + Boolean.toString(checkEquals(input.get("o1"), input.get("o2")));
+        return "Are we even real? Response is:" + Boolean.toString(checkEquals(input.get("o1"), input.get("o2")));
     }
 }
