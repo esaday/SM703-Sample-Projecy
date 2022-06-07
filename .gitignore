@@ -97,4 +97,7 @@ terraform.rc
 # Ignore code-workspaces
 *.code-workspace
 
+# Ignore target/
+target/
+
 # End of https://www.toptal.com/developers/gitignore/api/visualstudiocode,terraform,git,maven
