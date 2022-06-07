@@ -26,9 +26,10 @@ jobs:
   test:
     needs: build
     runs-on: ubuntu-latest
+    steps:
     - name: Run Unit Tests with Maven
       run: mvn -B test --file pom.xml
-      
+
   deploy-infra:
     needs: test
     runs-on: ubuntu-latest
