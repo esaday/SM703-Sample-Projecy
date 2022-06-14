@@ -45,7 +45,7 @@ resource "null_resource" "build" {
 
 // Create a log group for the lambda
 resource "aws_cloudwatch_log_group" "log_group" {
-  name = "/aws/lambda/${terraform.workspace}/java_lambda_function"
+  name = "/aws/lambda/java_lambda_function_${terraform.workspace}"
 }
 
 # allow lambda to log to cloudwatch
