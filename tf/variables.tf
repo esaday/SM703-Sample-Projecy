@@ -1,5 +1,5 @@
 variable "lambda_payload_filename" {
-  default = "../target/SM703-1.0-SNAPSHOT.jar"
+  default = "./target/SM703-1.0-SNAPSHOT.jar"
 }
 
 variable "lambda_function_handler" {
