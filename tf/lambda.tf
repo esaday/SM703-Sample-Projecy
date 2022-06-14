@@ -25,7 +25,8 @@ resource "aws_lambda_permission" "java_lambda_function" {
   principal     = "apigateway.amazonaws.com"
   # The /*/* portion grants access from any method on any resource
   # within the API Gateway "REST API".
-  source_arn = "${replace(aws_api_gateway_deployment.java_lambda_deploy.execution_arn, var.api_env_stage_name, "")}*/*"
+  # source_arn = "${replace(aws_api_gateway_deployment.java_lambda_deploy.execution_arn, var.api_env_stage_name, "")}*/*"
+  source_arn = "${aws_api_gateway_deployment.java_lambda_deploy.execution_arn}/*/*"
 }
 
 
@@ -44,7 +45,7 @@ resource "null_resource" "build" {
 
 // Create a log group for the lambda
 resource "aws_cloudwatch_log_group" "log_group" {
-  name = "/aws/lambda/java_lambda_function"
+  name = "/aws/lambda/${terraform.workspace}/java_lambda_function"
 }
 
 # allow lambda to log to cloudwatch

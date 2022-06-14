@@ -14,6 +14,7 @@ variable "api_path" {
   default = "{proxy+}"
 }
 
-variable "api_env_stage_name" {
-  default = "terraform-lambda-java-stage"
+# MUST Match with the DIST_ENV environmental variable.
+variable "dist_env" {
+  type = string
 }

@@ -1,14 +1,16 @@
 # This workflow will build a Java project with Maven, and cache/restore any dependencies to improve the workflow execution time
 # For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-maven
 
-name: Java CI with Maven
+name: Dev Workflow - Test and check infra config
 
 on:
   push:
-    branches: [ develop, feature-* ]
-  pull_request:
-    branches: [ main ]
+    branches: [ bugfix-*, hotfix-*, feature-* ]
 
+env:
+  TF_WORKSPACE: "dev"
+  TF_VAR_dist_env: "dev"
+  
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -37,8 +39,8 @@ jobs:
     - name: Run Unit Tests with Maven
       run: mvn -B test --file pom.xml
 
-  deploy-infra:
-    # needs: test
+  test-infra:
+    needs: test
     runs-on: ubuntu-latest
     steps:
     - name: Configure AWS credentials
@@ -72,7 +74,7 @@ jobs:
 
     - name: Terraform init
       id: init
-      run: terraform init
+      run: terraform init -backend-config=bucket=esad-703-tf-state -backend-config=key=environment/$TF_WORKSPACE.tfstate
       working-directory: tf
 
     - name: Terraform validate
@@ -84,3 +86,25 @@ jobs:
       id: plan
       run: terraform plan -no-color
       working-directory: tf
+
+  deploy-dev:
+    needs: test-infra
+    runs-on: ubuntu-latest
+    steps:
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: eu-west-1
+
+    - name: Check out code
+      uses: actions/checkout@v2
+      
+    - uses: hashicorp/setup-terraform@v1
+      with:
+        terraform_version: 0.14.4
+
+    - name: Terraform Apply
+      id: apply
+      run: terraform apply -auto-approve
