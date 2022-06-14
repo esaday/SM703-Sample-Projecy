@@ -18,3 +18,11 @@ variable "api_path" {
 variable "dist_env" {
   type = string
 }
+
+variable "s3_artifact_bucket" {
+  default = "esad-703-jars"
+}
+#this key should never exist
+variable "s3_artifact_key" {
+  default = "deployments/SM703-1.0-SNAPSHOT.jar"  
+}
