@@ -64,7 +64,7 @@ jobs:
 
       - name: Rename jar
         run: |
-          mv artifacts/${{ github.repository }}/helloworld-lambda-0.0.1-SNAPSHOT-aws.jar artifacts/${{ github.repository }}/${{ github.sha }}.jar
+          mv artifacts/${{ github.repository }}/SM703-1.0-SNAPSHOT.jar artifacts/${{ github.repository }}/${{ github.sha }}.jar
 
       - name: Push Zip to S3
         uses: jakejarvis/s3-sync-action@v0.3.1
