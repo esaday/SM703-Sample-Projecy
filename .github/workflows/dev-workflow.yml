@@ -10,6 +10,7 @@ on:
 env:
   TF_WORKSPACE: "dev"
   TF_VAR_dist_env: "dev"
+  TF_VAR_LAMBDA_JAR_LOCATION: $GITHUB_WORKSPACE/jarpack/SM703-1.0-SNAPSHOT.jar
 
 jobs:
   build:
@@ -24,6 +25,11 @@ jobs:
         cache: maven
     - name: Build with Maven
       run: mvn -B package --file pom.xml
+    - name: Upload jar
+      uses: actions/upload-artifact@v1
+      with:
+        name: jarpack
+        path: ./target
 
   test:
     needs: build
@@ -86,6 +92,11 @@ jobs:
       id: plan
       run: terraform plan -no-color -out dev.tfplan
       working-directory: tf
+
+    - name: Download jar
+      uses: actions/download-artifact@v1
+      with:
+        name: jarpack
 
     - name: Terraform Apply
       id: apply

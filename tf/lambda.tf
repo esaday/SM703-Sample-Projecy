@@ -1,8 +1,8 @@
 # defining our lambda and referencing to our java handler function
 resource "aws_lambda_function" "java_lambda_function" {
   runtime       = var.lambda_runtime
-  filename      = var.lambda_payload_filename
-  function_name = "java_lambda_function"
+  filename      = terraform.workspace != "default" ? var.LAMBDA_JAR_LOCATION : var.LAMBDA_JAR_LOCATION.default
+  function_name = "java_lambda_function_${terraform.workspace}"
   # lambda handler function name, it will be full class path name with package name
   handler     = "tr.edu.metu.sm703.SM703Example" #package-name.class-name
   timeout     = 60

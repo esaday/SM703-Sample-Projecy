@@ -1,4 +1,4 @@
-variable "lambda_payload_filename" {
+variable "LAMBDA_JAR_LOCATION" {
   default = "./target/SM703-1.0-SNAPSHOT.jar"
 }
 
