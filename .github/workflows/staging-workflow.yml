@@ -6,6 +6,7 @@ on:
 
 env:
   TF_WORKSPACE: "staging"
+  TF_LOG: "DEBUG"
 
 jobs:
   build:
