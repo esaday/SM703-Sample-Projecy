@@ -10,7 +10,7 @@ on:
 env:
   TF_WORKSPACE: "dev"
   TF_VAR_dist_env: "dev"
-  
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -84,7 +84,7 @@ jobs:
 
     - name: Terraform plan
       id: plan
-      run: terraform plan -no-color
+      run: terraform plan -no-color -out dev.tfplan
       working-directory: tf
 
   deploy-dev:
@@ -107,4 +107,5 @@ jobs:
 
     - name: Terraform Apply
       id: apply
-      run: terraform apply -auto-approve
+      run: terraform apply dev.tfplan
+      working-directory: tf
