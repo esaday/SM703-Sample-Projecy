@@ -51,3 +51,8 @@ resource "aws_iam_role_policy_attachment" "aws_iam_role_policy_attachment" {
   role       = aws_iam_role.iam_role_for_lambda.name
   policy_arn = aws_iam_policy.iam_policy_for_lambda.arn
 }
+
+resource "aws_iam_role_policy_attachment" "cloudwatch_lambda_insights" {
+  role       = aws_iam_role.iam_role_for_lambda.name
+  policy_arn = "arn:aws:iam::aws:policy/CloudWatchLambdaInsightsExecutionRolePolicy"
+}
