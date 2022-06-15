@@ -24,5 +24,5 @@ variable "s3_artifact_bucket" {
 }
 #this key should never exist
 variable "s3_artifact_key" {
-  default = "deployments/SM703-1.0-SNAPSHOT.jar"  
+  default = "deployments/SM703-1.0-SNAPSHOT.jar"
 }

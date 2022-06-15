@@ -2,11 +2,11 @@
 resource "aws_lambda_function" "java_lambda_function" {
   runtime       = var.lambda_runtime
   function_name = "java_lambda_function_${terraform.workspace}"
-  s3_bucket = var.s3_artifact_bucket
-  s3_key = var.s3_artifact_key
-  handler     = "tr.edu.metu.sm703.SM703Example" #package-name.class-name
-  timeout     = 60
-  memory_size = 256
+  s3_bucket     = var.s3_artifact_bucket
+  s3_key        = var.s3_artifact_key
+  handler       = "tr.edu.metu.sm703.SM703Example" #package-name.class-name
+  timeout       = 60
+  memory_size   = 256
   # role for lambda is defined in aws-iam_role resource
   role             = aws_iam_role.iam_role_for_lambda.arn
   source_code_hash = null_resource.build.triggers.main
@@ -25,8 +25,7 @@ resource "aws_lambda_permission" "java_lambda_function" {
   principal     = "apigateway.amazonaws.com"
   # The /*/* portion grants access from any method on any resource
   # within the API Gateway "REST API".
-  # source_arn = "${replace(aws_api_gateway_deployment.java_lambda_deploy.execution_arn, var.api_env_stage_name, "")}*/*"
-  source_arn = "${aws_api_gateway_deployment.java_lambda_deploy.execution_arn}/*/*"
+  source_arn = "${replace(aws_api_gateway_deployment.java_lambda_deploy.execution_arn, terraform.workspace, "")}*/*"
 }
 
 
