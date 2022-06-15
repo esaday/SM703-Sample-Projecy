@@ -1,6 +1,6 @@
 # lambda role
 resource "aws_iam_role" "iam_role_for_lambda" {
-  name               = "lambda-invoke-role"
+  name               = "lambda-invoke-role-${terraform.workspace}"
   assume_role_policy = <<EOF
 {
     "Version": "2012-10-17",
@@ -20,7 +20,7 @@ EOF
 
 # lambda policy
 resource "aws_iam_policy" "iam_policy_for_lambda" {
-  name = "lambda-invoke-policy"
+  name = "lambda-invoke-policy__${terraform.workspace}"
   path = "/"
 
   policy = <<EOF
