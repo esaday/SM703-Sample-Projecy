@@ -1,4 +1,4 @@
-name: Staging Workflow - Test and deploy to staging
+name: Production Workflow - Test and deploy to PRODUCTION
 
 on:
   pull_request:

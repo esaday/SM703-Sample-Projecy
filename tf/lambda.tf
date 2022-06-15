@@ -14,6 +14,9 @@ resource "aws_lambda_function" "java_lambda_function" {
     aws_cloudwatch_log_group.log_group,
     null_resource.build
   ]
+  layers = [
+    "arn:aws:lambda:eu-west-1:580247275435:layer:LambdaInsightsExtension:18"
+  ]
 
 }
 # defining permission for our lambda, we have allowed API gateway to
