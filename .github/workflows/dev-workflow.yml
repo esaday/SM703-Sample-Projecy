@@ -9,7 +9,6 @@ on:
 
 env:
   TF_WORKSPACE: "dev"
-  TF_VAR_dist_env: "dev"
   TF_LOG: "TRACE"
 
 jobs:

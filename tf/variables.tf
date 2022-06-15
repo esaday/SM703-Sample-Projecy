@@ -14,11 +14,6 @@ variable "api_path" {
   default = "{proxy+}"
 }
 
-# MUST Match with the DIST_ENV environmental variable.
-variable "dist_env" {
-  type = string
-}
-
 variable "s3_artifact_bucket" {
   default = "esad-703-jars"
 }

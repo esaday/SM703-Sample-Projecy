@@ -53,7 +53,12 @@ resource "aws_api_gateway_integration" "java_lambda_integration_root" {
 
 # defining our api gateway stage name
 resource "aws_api_gateway_deployment" "java_lambda_deploy" {
-  depends_on  = [aws_api_gateway_integration.java_lambda_integration]
-  rest_api_id = aws_api_gateway_rest_api.java_lambda_api.id
-  stage_name  = var.dist_env
+  depends_on        = [aws_api_gateway_integration.java_lambda_integration]
+  rest_api_id       = aws_api_gateway_rest_api.java_lambda_api.id
+  stage_name        = terraform.workspace
+  stage_description = "Deployed at ${timestamp()}"
+
+  lifecycle {
+    create_before_destroy = true
+  }
 }
