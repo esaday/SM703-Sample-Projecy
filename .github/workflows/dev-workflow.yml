@@ -9,7 +9,7 @@ on:
 
 env:
   TF_WORKSPACE: "dev"
-  TF_LOG: "TRACE"
+  # TF_LOG: "TRACE"
 
 jobs:
   build:
